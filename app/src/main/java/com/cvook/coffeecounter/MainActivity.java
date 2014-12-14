@@ -1,6 +1,8 @@
 package com.cvook.coffeecounter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
@@ -10,9 +12,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +24,8 @@ import java.util.UUID;
 
 public class MainActivity extends ActionBarActivity {
     private final static String STOREDUUID = "uid";
+    private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
+    private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
     private String userId;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -27,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String url = "http://cc.cvook.com/cc.html?";
+        String url = HOMEPAGEURL + "?";
         userId = PreferenceManager.getDefaultSharedPreferences(this).getString(STOREDUUID, null);
         if(userId == null || userId.length() == 0){
             userId = UUID.randomUUID().toString();
@@ -41,13 +47,13 @@ public class MainActivity extends ActionBarActivity {
         try {
             Uri data = getIntent().getData();
             if (data != null) {
-                String scheme = data.getScheme();
-                String host = data.getHost();
-                List<String> params = data.getPathSegments();
-                String first = params.get(0);
-                String second = params.get(1);
-                // ((TextView) findViewById(R.id.infotext)).setText(scheme +
-                // "---" + host + "---" + first + "---" + second);
+                Log.d("CC", "start from uri:" + data.toString());
+                if(data.toString().startsWith(ADDACUPURL)){
+                    //ADD A cup
+
+
+                    finish();
+                }
             }
         } catch (Exception e) {
             Log.e("CC", "ERROR:", e);
@@ -58,7 +64,7 @@ public class MainActivity extends ActionBarActivity {
         webSettings.setJavaScriptEnabled(true);
         WebViewClient client = new CCWebViewClient();
         webView.setWebViewClient(client);
-        webView.addJavascriptInterface(new CoffeeCounterJSBridge(this), "CCJSBridge");
+        webView.addJavascriptInterface(new CoffeeCounterJSBridge(), "CCJSBridge");
 
         webView.loadUrl(url);
     }
@@ -77,15 +83,26 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Log.d("CC", "menu Setting clicked.");
+            startSettingActivity();
             return true;
         }else if(id == R.id.action_refresh){
-            WebView webView = (WebView) findViewById(R.id.webView);
-            webView.clearCache(true);
-            webView.reload();
+            Log.d("CC", "menu Refresh clicked.");
+            reloadHomePage();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void reloadHomePage(){
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.clearCache(true);
+        webView.reload();
+    }
+
+    private void startSettingActivity(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     class CCWebViewClient extends WebViewClient{
 
@@ -100,4 +117,35 @@ public class MainActivity extends ActionBarActivity {
         }
 
     }
+
+    /**
+     * Methods in this classed is used for calling in Javascript of the Webview.
+     */
+    class CoffeeCounterJSBridge {
+
+        /**
+         * Show a toast from the web page
+         */
+        @JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+        }
+
+        /**
+         * load the Settings Activity from web page
+         */
+        @JavascriptInterface
+        public void showSettings(){
+            startSettingActivity();
+        }
+
+        /**
+         * refresh the webView from the web page
+         */
+        @JavascriptInterface
+        public void refresh(){
+            reloadHomePage();
+        }
+    }
+
 }
