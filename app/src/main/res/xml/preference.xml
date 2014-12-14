@@ -1,0 +1,64 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:key="groupMe" android:title="@string/groupMe" >
+        <Preference
+            android:key = "avatar"
+            android:persistent="false"
+            android:title="@string/avatar"
+            />
+
+        <EditTextPreference
+            android:key="nickname"
+            android:title="@string/nickname"
+            android:selectAllOnFocus="true"
+            android:inputType="textCapWords"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+        <EditTextPreference
+            android:key="uuid"
+            android:title="@string/uuid"
+            android:selectAllOnFocus="true"
+            android:inputType="textCapWords"
+            android:capitalize="words"
+            android:singleLine="true"
+            android:maxLines="1" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="groupMe" android:title="@string/groupAddaCup" >
+        <Preference
+            android:key="addCupBarcode"
+            android:persistent="false"
+            android:title="@string/addCupBarcode"
+            android:summary="@string/addCupBarcodeSummary" />
+        <Preference
+            android:key="addCupNFCUrl"
+            android:persistent="false"
+            android:title="@string/addCupNFCUrl"
+            android:summary="@string/addCupNFCUrlSummary" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:key="groupData" android:title="@string/groupData" >
+        <Preference
+            android:key="importData"
+            android:persistent="false"
+            android:title="@string/importData"
+            android:summary="@string/importDataSummary" />
+        <Preference
+            android:key="exportData"
+            android:persistent="false"
+            android:title="@string/exportData"
+            android:summary="@string/exportDataSummary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="groupApp" android:title="@string/groupApp" >
+        <Preference
+            android:key="version"
+            android:persistent="false"
+            android:title="@string/version"
+            android:summary="" />
+    </PreferenceCategory>
+</PreferenceScreen>
