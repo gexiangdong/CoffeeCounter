@@ -1,7 +1,6 @@
 package com.cvook.coffeecounter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -13,12 +12,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -33,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String version = "1.0";
+
         String url = HOMEPAGEURL + "?";
         userId = PreferenceManager.getDefaultSharedPreferences(this).getString(STOREDUUID, null);
         if(userId == null || userId.length() == 0){
@@ -59,14 +60,17 @@ public class MainActivity extends ActionBarActivity {
             Log.e("CC", "ERROR:", e);
         }
         WebView webView = (WebView) findViewById(R.id.webView);
-        webView.loadData("<html><body style='background-color:#000'></body></html>", "text/html", "UTF-8");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setUserAgentString(webSettings.getUserAgentString() + "[CoffeeCounter APP (" + version + ")]");
         WebViewClient client = new CCWebViewClient();
+        WebChromeClient chrome = new CCWebChromeClient();
         webView.setWebViewClient(client);
+        webView.setWebChromeClient(chrome);
         webView.addJavascriptInterface(new CoffeeCounterJSBridge(), "CCJSBridge");
+        webView.loadData("<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + url + "\" /></head><body style='background-color:#000'></body></html>", "text/html", "UTF-8");
 
-        webView.loadUrl(url);
+        //webView.loadUrl(url);
     }
 
     @Override
@@ -104,7 +108,33 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    class CCWebChromeClient extends WebChromeClient{
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            Log.d("CC", "onProgressChanged() " + newProgress);
+        }
+
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            Log.d("CC", "onReceivedTitle() " + title);
+        }
+    }
+
     class CCWebViewClient extends WebViewClient{
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            Log.d("CC", "onPageFinished() " + url);
+        }
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            super.onLoadResource(view, url);
+            Log.d("CC", "onLoadResource() " + url);
+        }
 
         @Override
         public void onReceivedError(WebView view, int errorCode,
