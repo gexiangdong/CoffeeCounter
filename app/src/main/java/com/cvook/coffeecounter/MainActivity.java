@@ -25,12 +25,13 @@ public class MainActivity extends ActionBarActivity {
     private final static String STOREDUUID = "uid";
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
     private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
-    private String userId;
+    private static String userId;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         String version = "1.0";
 
@@ -178,4 +179,8 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+
+    public static String getUserId(){
+        return userId;
+    }
 }

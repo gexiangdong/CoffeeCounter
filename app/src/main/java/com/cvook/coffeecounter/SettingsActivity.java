@@ -53,15 +53,17 @@ public class SettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preference);
 
-//            findPreference("changeLanguage").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+            findPreference("uuid").setSummary(MainActivity.getUserId());
+
+//            findPreference("uuid").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 //                @Override public boolean onPreferenceClick(Preference preference){
 //                    //切换语言
-//                    Toast.makeText(preference.getContext(), R.string.changeLanguageNotes, Toast.LENGTH_LONG).show();
+//                   Toast.makeText(preference.getContext(), R.string.changeLanguageNotes, Toast.LENGTH_LONG).show();
 //                    return true;
 //                }
 //            });
 
-            //bindPreferenceSummaryToValue(findPreference("userProfile"));
+            //bindPreferenceSummaryToValue(findPreference("nickName"));
             //bindPreferenceSummaryToValue(findPreference("changeLanguage"));
 
             //findPreference("version").setSummary(getString(R.string.appVersion) + " Build " + this.appBuildVersion);
