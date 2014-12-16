@@ -1,13 +1,13 @@
 package com.cvook.coffeecounter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.UUID;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
     private final static String STOREDUUID = "uid";
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
     private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
