@@ -8,7 +8,7 @@
     <string name="uuid">UUID</string>
 
 
-    <string name="groupAddaCup">More alternatives of "add a cup"</string>
+    <string name="groupAddaCup">Alternatives to Count a Cup</string>
     <string name="addCupBarcode">Scan Barcode</string>
     <string name="addCupBarcodeSummary">Print the barcode on your coffee cup, scan it each time when you have a cup of coffee.</string>
     <string name="addCupNFCUrl">Using a NFC Tag</string>

@@ -1,6 +1,7 @@
 package com.cvook.coffeecounter;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
@@ -25,7 +27,10 @@ public class MainActivity extends Activity {
     private final static String STOREDUUID = "uid";
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
     private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
+    private String homeUrl;
     private static String userId;
+
+    private long exitTime = 0;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -45,13 +50,13 @@ public class MainActivity extends Activity {
             editor.commit();
         }
         url += userId;
-
+        homeUrl = url;
         try {
             Uri data = getIntent().getData();
             if (data != null) {
                 Log.d("CC", "start from uri:" + data.toString());
                 if(data.toString().startsWith(ADDACUPURL)){
-                    //ADD A cup
+                    //TODO:ADD A cup
 
 
                     finish();
@@ -74,6 +79,27 @@ public class MainActivity extends Activity {
         //webView.loadUrl(url);
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            WebView webView = (WebView) findViewById(R.id.webView);
+            if(webView.canGoBack()) {
+                webView.goBack();
+            }else{
+                if ((System.currentTimeMillis() - exitTime) > 2000) {
+                    Toast.makeText(MainActivity.this, getString(R.string.exit_hint), Toast.LENGTH_SHORT).show();
+                    exitTime = System.currentTimeMillis();
+                } else {
+                    finish();
+                }
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,9 +117,15 @@ public class MainActivity extends Activity {
             Log.d("CC", "menu Setting clicked.");
             startSettingActivity();
             return true;
-        }else if(id == R.id.action_refresh){
+        }else if(id == R.id.action_refresh) {
             Log.d("CC", "menu Refresh clicked.");
             reloadHomePage();
+        }else if(id == android.R.id.home){
+            Log.d("CC", "Title clicked");
+            WebView webView = (WebView) findViewById(R.id.webView);
+            webView.goBack();
+        }else{
+            Log.d("CC", "menu clicked on " + item.getItemId() + ", " + item.getTitle());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -101,7 +133,7 @@ public class MainActivity extends Activity {
     private void reloadHomePage(){
         WebView webView = (WebView) findViewById(R.id.webView);
         webView.clearCache(true);
-        webView.reload();
+        webView.loadUrl(homeUrl);
     }
 
     private void startSettingActivity(){
@@ -119,6 +151,15 @@ public class MainActivity extends Activity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+            MainActivity.this.setTitle(title);
+            ActionBar bar = getActionBar();
+            if(bar != null) {
+                if(view.getUrl().equals(homeUrl)) {
+                    bar.setDisplayHomeAsUpEnabled(false);
+                }else{
+                    bar.setDisplayHomeAsUpEnabled(true);
+                }
+            }
             Log.d("CC", "onReceivedTitle() " + title);
         }
     }
