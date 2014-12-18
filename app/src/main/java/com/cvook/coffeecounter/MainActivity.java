@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             WebView webView = (WebView) findViewById(R.id.webView);
-            if(webView.canGoBack()) {
+            if(webView.canGoBack() && !webView.equals(homeUrl)) {
                 webView.goBack();
             }else{
                 if ((System.currentTimeMillis() - exitTime) > 2000) {
@@ -169,6 +169,9 @@ public class MainActivity extends Activity {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            if(url.equals(homeUrl)){
+                view.clearHistory();
+            }
             Log.d("CC", "onPageFinished() " + url);
         }
 
