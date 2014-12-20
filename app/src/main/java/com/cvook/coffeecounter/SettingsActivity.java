@@ -53,7 +53,7 @@ public class SettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preference);
 
-            findPreference("uuid").setSummary(MainActivity.getUserId());
+            findPreference("uuid").setSummary(MainActivity.getUserId(this.getActivity()));
 
 //            findPreference("uuid").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
 //                @Override public boolean onPreferenceClick(Preference preference){

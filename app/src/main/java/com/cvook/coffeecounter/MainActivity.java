@@ -3,6 +3,7 @@ package com.cvook.coffeecounter;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -28,7 +29,6 @@ public class MainActivity extends Activity {
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
     private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
     private String homeUrl;
-    private static String userId;
 
     private long exitTime = 0;
 
@@ -41,14 +41,7 @@ public class MainActivity extends Activity {
         String version = "1.0";
 
         String url = HOMEPAGEURL + "?";
-        userId = PreferenceManager.getDefaultSharedPreferences(this).getString(STOREDUUID, null);
-        if(userId == null || userId.length() == 0){
-            userId = UUID.randomUUID().toString();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            Editor editor = preferences.edit();
-            editor.putString(STOREDUUID, userId);
-            editor.commit();
-        }
+        String userId = MainActivity.getUserId(this);
         url += userId;
         homeUrl = url;
         try {
@@ -56,7 +49,8 @@ public class MainActivity extends Activity {
             if (data != null) {
                 Log.d("CC", "start from uri:" + data.toString());
                 if(data.toString().startsWith(ADDACUPURL)){
-                    //TODO:ADD A cup
+                    //ADD A cup (omit the userId in the url parmerters, add a cup to the app user.
+
 
 
                     finish();
@@ -224,7 +218,15 @@ public class MainActivity extends Activity {
     }
 
 
-    public static String getUserId(){
+    public static String getUserId(Context context){
+        String userId = PreferenceManager.getDefaultSharedPreferences(context).getString(STOREDUUID, null);
+        if(userId == null || userId.length() == 0){
+            userId = UUID.randomUUID().toString();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            Editor editor = preferences.edit();
+            editor.putString(STOREDUUID, userId);
+            editor.commit();
+        }
         return userId;
     }
 }
