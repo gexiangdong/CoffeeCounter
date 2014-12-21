@@ -45,7 +45,7 @@ public class Util {
 
 
     public void getRemoteJSONObjectAsync(final String action, final String userId, final Map<String, String> params, final Handler handler) {
-        Runnable runable = new Runnable(){
+        Runnable ra = new Runnable(){
             @Override
             public void run(){
                 JSONObject json = getRemoteJSONObject(action, userId, params);
@@ -58,7 +58,7 @@ public class Util {
                 handler.sendMessage(msg);
             }
         };
-        new Thread(runable).start();
+        new Thread(ra).start();
     }
 
     /**

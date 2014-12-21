@@ -15,13 +15,16 @@
     <string name="addCupNFCUrlSummary">Snap the NFC Tag on your coffee cup, put your phone close to the cup before your drink it.</string>
 
 
-    <!-- Example settings for Data & Sync -->
     <string name="groupData">Data</string>
     <string name="importData">Import Data</string>
-    <string name="importDataSummary">Import coffee drink records in CSV format</string>
+    <string name="importDataSummary">Import coffee drink records in CSV format. (to be done)</string>
     <string name="exportData">Export Data</string>
-    <string name="exportDataSummary">Export your drink record to SDCard.</string>
+    <string name="exportDataSummary">Export your drink record to SDCard. (to be done)</string>
 
     <string name="groupApp">APP</string>
     <string name="version">Version</string>
+
+
+    <string name="write_nfc_tag">Build an "Add A Cup" NFC Tag</string>
+    <string name="write_nfc_tag_note">Bring a writable NFC Tag close to the phone.</string>
 </resources>

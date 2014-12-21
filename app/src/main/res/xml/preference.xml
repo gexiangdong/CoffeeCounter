@@ -27,21 +27,21 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:key="groupMe" android:title="@string/groupAddaCup" >
+    <PreferenceCategory android:key="groupAddaCup" android:title="@string/groupAddaCup" >
+        <Preference
+            android:key="addCupNFCTag"
+            android:persistent="false"
+            android:title="@string/addCupNFCUrl"
+            android:summary="@string/addCupNFCUrlSummary" />
         <Preference
             android:key="addCupBarcode"
             android:persistent="false"
             android:title="@string/addCupBarcode"
             android:summary="@string/addCupBarcodeSummary" />
-        <Preference
-            android:key="addCupNFCUrl"
-            android:persistent="false"
-            android:title="@string/addCupNFCUrl"
-            android:summary="@string/addCupNFCUrlSummary" />
     </PreferenceCategory>
 
 
-    <PreferenceCategory android:key="groupData" android:title="@string/groupData" >
+    <PreferenceCategory android:key="groupData" android:title="@string/groupData" android:enabled="false" >
         <Preference
             android:key="importData"
             android:persistent="false"
