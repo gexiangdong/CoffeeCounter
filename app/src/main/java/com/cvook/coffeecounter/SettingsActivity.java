@@ -75,6 +75,7 @@ public class SettingsActivity extends Activity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        Log.d("CC", "SettingsActivity.onNewIntent()" + intent.getAction());
         if (nfcWriteMode && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Log.d("CC", "try to write uri to nfc tag.");
             Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -85,7 +86,7 @@ public class SettingsActivity extends Activity {
                 if(cancelNfcWriteDialog != null){
                     cancelNfcWriteDialog.dismiss();
                 }
-                Toast.makeText(this, "Success: Wrote placeid to nfc tag", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.write_nfc_tag_success), Toast.LENGTH_LONG).show();
             }
             nfcWriteMode = false;
         }
@@ -94,7 +95,7 @@ public class SettingsActivity extends Activity {
     public void startWriteNfcTag(){
         NfcAdapter nfcAdapter  = NfcAdapter.getDefaultAdapter(this);
         PendingIntent nfcPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+                new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
         nfcWriteMode = true;
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
@@ -125,15 +126,11 @@ public class SettingsActivity extends Activity {
             if (ndef != null) {
                 ndef.connect();
                 if (!ndef.isWritable()) {
-                    Toast.makeText(getApplicationContext(),
-                            "Error: tag not writable",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.error_tag_not_writeable), Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 if (ndef.getMaxSize() < size) {
-                    Toast.makeText(getApplicationContext(),
-                            "Error: tag too small",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.error_tag_too_small), Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 ndef.writeNdefMessage(message);

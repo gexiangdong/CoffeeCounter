@@ -27,4 +27,7 @@
 
     <string name="write_nfc_tag">Build an "Add A Cup" NFC Tag</string>
     <string name="write_nfc_tag_note">Bring a writable NFC Tag close to the phone.</string>
+    <string name="write_nfc_tag_success">Success to write the NFC Tag.</string>
+    <string name="error_tag_not_writeable">Error: The tag is NOT writable.</string>
+    <string name="error_tag_too_small">Error: Tag is too small, buy anther tag please.</string>
 </resources>
