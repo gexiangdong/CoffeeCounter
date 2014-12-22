@@ -13,6 +13,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 /**
  * This Activity does NOT have an UI.
  * It is called by NFC tag.
@@ -26,7 +28,9 @@ public class AddACupActivity extends Activity {
         Log.d("CC", "AddACupActivity onCreated...");
         setContentView(R.layout.activity_add_acup);
         String userId = MainActivity.getUserId(this);
-        Util.getInstance().getRemoteJSONObjectAsync("ADDACUP", userId, null, new Handler(){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("datasource", "2");
+        Util.getInstance().getRemoteJSONObjectAsync("ADDACUP", userId, params, new Handler(){
             @Override
             public void handleMessage(Message msg){
                 super.handleMessage(msg);
