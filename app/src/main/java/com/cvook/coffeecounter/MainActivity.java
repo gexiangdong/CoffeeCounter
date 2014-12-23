@@ -27,7 +27,7 @@ import java.util.UUID;
 public class MainActivity extends Activity {
     private final static String STOREDUUID = "uid";
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
-    private final static String HOMEPAGEURL = "http://cc.cvoaok.com/cc.html";
+    private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
     private String homeUrl;
     private WebView webView;
 
@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if(webView.canGoBack() && !webView.equals(homeUrl)) {
+            if(webView.canGoBack() && !webView.getUrl().equals(homeUrl)) {
                 webView.goBack();
             }else{
                 if ((System.currentTimeMillis() - exitTime) > 2000) {
@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
             webView.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
                 }
             });
         }
