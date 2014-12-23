@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Coffee Counter</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta content="True" name="HandheldFriendly">
-<meta name="apple-mobile-web-app-capable" content="no">
 <meta name="viewport" content="width=device-width, user-scalable=no">
-<meta name="format-detection" content="telephone=yes" />
-<link rel="stylesheet" type="text/css" href="main.css" />
-<head>
+<style type="text/css">
+h1{font-size:20px;}
+h2{font-size:18px;}
+p{font-size:16px;}
+.button{font-weight:bold;text-align:center;color:#FFFFFF;background-color:#0000FF;font-size:18px; padding:10px; border-radius:3px; margin-top:20px; margin-bottom:20px;}
+</style>
 </head>
 <body>
-<h1>NETWORK ERROR</h1>
-<div>Network Error, </div>
-<div onclick="CCJSBridge.refresh();">Reload</div>
+<h1>Network Error.</h1>
+<div class="button" onclick="CCJSBridge.refresh();">Reload</div>
+<h2>Check your Internet connection</h2>
+<p>Check any cables and reboot any routers, modems, or other network devices you maybe using.</p>
+<p>Allow Coffee Counter to access the network in your firewall or antivirus settings.</p>
+<p>If is already listed as a program allowed to access the network, try removing it from the list and adding it again.</p>
 </body>
 </html>

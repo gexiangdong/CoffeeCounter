@@ -27,8 +27,9 @@ import java.util.UUID;
 public class MainActivity extends Activity {
     private final static String STOREDUUID = "uid";
     private final static String ADDACUPURL = "http://cc.cvook.com/addacup";
-    private final static String HOMEPAGEURL = "http://cc.cvook.com/cc.html";
+    private final static String HOMEPAGEURL = "http://cc.cvoaok.com/cc.html";
     private String homeUrl;
+    private WebView webView;
 
     private long exitTime = 0;
 
@@ -50,16 +51,13 @@ public class MainActivity extends Activity {
                 Log.d("CC", "start from uri:" + data.toString());
                 if(data.toString().startsWith(ADDACUPURL)){
                     //ADD A cup (omit the userId in the url parmerters, add a cup to the app user.
-
-
-
                     finish();
                 }
             }
         } catch (Exception e) {
             Log.e("CC", "ERROR:", e);
         }
-        WebView webView = (WebView) findViewById(R.id.webView);
+        webView = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUserAgentString(webSettings.getUserAgentString() + "[CoffeeCounter APP (" + version + ")]");
@@ -68,16 +66,20 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(client);
         webView.setWebChromeClient(chrome);
         webView.addJavascriptInterface(new CoffeeCounterJSBridge(), "CCJSBridge");
-        webView.loadData("<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + url + "\" /></head><body style='background-color:#000'></body></html>", "text/html", "UTF-8");
 
-        //webView.loadUrl(url);
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webView.loadData("<html><head><meta http-equiv=\"refresh\" content=\"0; url=" + homeUrl + "\" /></head><body style='background-color:#000'></body></html>", "text/html", "UTF-8");
+            }
+        });
+
     }
 
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            WebView webView = (WebView) findViewById(R.id.webView);
             if(webView.canGoBack() && !webView.equals(homeUrl)) {
                 webView.goBack();
             }else{
@@ -116,7 +118,6 @@ public class MainActivity extends Activity {
             reloadHomePage();
         }else if(id == android.R.id.home){
             Log.d("CC", "Title clicked");
-            WebView webView = (WebView) findViewById(R.id.webView);
             webView.goBack();
         }else{
             Log.d("CC", "menu clicked on " + item.getItemId() + ", " + item.getTitle());
@@ -125,7 +126,6 @@ public class MainActivity extends Activity {
     }
 
     private void reloadHomePage(){
-        WebView webView = (WebView) findViewById(R.id.webView);
         webView.clearCache(true);
         webView.loadUrl(homeUrl);
     }
@@ -196,27 +196,42 @@ public class MainActivity extends Activity {
          * Show a toast from the web page
          */
         @JavascriptInterface
-        public void showToast(String toast) {
-            Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+        public void showToast(final String toast) {
+            webView.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         /**
          * load the Settings Activity from web page
          */
         @JavascriptInterface
-        public void showSettings(){
-            startSettingActivity();
+        public void showSettings() {
+            webView.post(new Runnable() {
+                @Override
+                public void run() {
+                    startSettingActivity();
+                }
+            });
         }
 
         /**
          * refresh the webView from the web page
          */
         @JavascriptInterface
-        public void refresh(){
-            reloadHomePage();
+        public void refresh() {
+            Log.d("CC", "CoffeeCounterJSBridge:refresh();");
+            webView.post(new Runnable() {
+                @Override
+                public void run() {
+                    reloadHomePage();
+                }
+            });
         }
     }
-
 
     public static String getUserId(Context context){
         String userId = PreferenceManager.getDefaultSharedPreferences(context).getString(STOREDUUID, null);
