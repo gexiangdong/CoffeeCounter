@@ -22,6 +22,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.widget.Toast;
+import android.content.DialogInterface.OnDismissListener;
+
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ import java.util.zip.ZipFile;
 public class SettingsActivity extends Activity {
     private boolean nfcWriteMode = false;
     private AlertDialog cancelNfcWriteDialog;
-
+    private NfcAdapter nfcAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,7 @@ public class SettingsActivity extends Activity {
     }
 
     public void startWriteNfcTag(){
-        NfcAdapter nfcAdapter  = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter  = NfcAdapter.getDefaultAdapter(this);
         PendingIntent nfcPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, SettingsActivity.class).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
@@ -115,6 +117,13 @@ public class SettingsActivity extends Activity {
                 });
 
         cancelNfcWriteDialog = adb.create();
+        cancelNfcWriteDialog.setOnDismissListener(new DialogInterface.OnDismissListener{
+            public void onDismiss(DialogInterface dialog){
+                if(nfcAdapter != null){
+                    nfcAdapter.disableForegroundDispatch(SettingsActivity.this);
+                }
+            }
+        });
         cancelNfcWriteDialog.show();
 
     }
