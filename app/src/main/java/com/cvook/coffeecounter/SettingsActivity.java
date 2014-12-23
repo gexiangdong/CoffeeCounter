@@ -117,7 +117,7 @@ public class SettingsActivity extends Activity {
                 });
 
         cancelNfcWriteDialog = adb.create();
-        cancelNfcWriteDialog.setOnDismissListener(new DialogInterface.OnDismissListener{
+        cancelNfcWriteDialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
             public void onDismiss(DialogInterface dialog){
                 if(nfcAdapter != null){
                     nfcAdapter.disableForegroundDispatch(SettingsActivity.this);
