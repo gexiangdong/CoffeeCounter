@@ -187,20 +187,28 @@ public class SettingsActivity extends Activity {
             }
             findPreference("version").setSummary(version);
 
-
-            findPreference("addCupNFCTag").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
-                @Override
-                public boolean onPreferenceClick(Preference preference){
-                    Activity activity = SettingFragment.this.getActivity();
-                    if(activity instanceof SettingsActivity) {
-                        ((SettingsActivity) activity).startWriteNfcTag();
-                    }else{
-                        Log.d("CC", "Cannot start nfc write.");
+            Preference nfcPreference = findPreference("addCupNFCTag");
+            NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+            if (adapter == null){
+                //NFC not supported
+                adapter.setSummary(this.getActivity().getString(R.string.nfc_notsupported));
+            }else if(adapter.isEnabled()) {
+                //NFC is disabled now.
+                adapter.setSummary(this.getActivity().getString(R.string.nfc_disabled));
+            }else{
+                nfcPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+                    @Override
+                    public boolean onPreferenceClick(Preference preference){
+                        Activity activity = SettingFragment.this.getActivity();
+                        if(activity instanceof SettingsActivity) {
+                            ((SettingsActivity) activity).startWriteNfcTag();
+                        }else{
+                            Log.d("CC", "Cannot start nfc write.");
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
-
+                });
+            }
 
         }
 

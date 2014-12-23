@@ -30,4 +30,6 @@
     <string name="write_nfc_tag_success">Success to write the NFC Tag.</string>
     <string name="error_tag_not_writeable">Error: The tag is NOT writable.</string>
     <string name="error_tag_too_small">Error: Tag is too small, buy anther tag please.</string>
+    <string name="nfc_disabled">NFC is disabled, enabled it from settings before make a NFC tag.</string>
+    <string name="nfc_notsupported">Your phone does NOT support NFC. This function need NFC.</string>
 </resources>
