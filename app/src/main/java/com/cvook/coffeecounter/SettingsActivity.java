@@ -188,13 +188,13 @@ public class SettingsActivity extends Activity {
             findPreference("version").setSummary(version);
 
             Preference nfcPreference = findPreference("addCupNFCTag");
-            NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+            NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this.getActivity());
             if (adapter == null){
                 //NFC not supported
-                adapter.setSummary(this.getActivity().getString(R.string.nfc_notsupported));
+                nfcPreference.setSummary(this.getActivity().getString(R.string.nfc_notsupported));
             }else if(adapter.isEnabled()) {
                 //NFC is disabled now.
-                adapter.setSummary(this.getActivity().getString(R.string.nfc_disabled));
+                nfcPreference.setSummary(this.getActivity().getString(R.string.nfc_disabled));
             }else{
                 nfcPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
                     @Override
