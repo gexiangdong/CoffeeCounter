@@ -52,6 +52,13 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:key="groupApp" android:title="@string/groupApp" >
+        <CheckBoxPreference
+            android:key="vibrate"
+            android:title="@string/vibrate_on_nfc_detected"
+            android:summary="@string/vibrate_on_nfc_detected_summary"
+            android:defaultValue="true"
+            />
+
         <Preference
             android:key="version"
             android:persistent="false"

@@ -1,12 +1,15 @@
 package com.cvook.coffeecounter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -43,6 +46,11 @@ public class AddACupActivity extends Activity {
                     try {
                         JSONObject resp = new JSONObject(jsonString);
                         Toast.makeText(AddACupActivity.this, resp.getString("message"), Toast.LENGTH_LONG).show();
+                        if(PreferenceManager.getDefaultSharedPreferences(AddACupActivity.this).getBoolean("", true)){
+                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            long [] pattern = {100,400,100};   // 停止 开启 停止 开启
+                            vibrator.vibrate(pattern, -1);
+                        }
                     } catch (JSONException e) {
                         Log.e("CC", "JSONException。", e);
                         Toast.makeText(AddACupActivity.this, getString(R.string.addacup_something_wrong), Toast.LENGTH_LONG).show();

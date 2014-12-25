@@ -22,8 +22,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.widget.Toast;
-import android.content.DialogInterface.OnDismissListener;
-
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -192,7 +190,7 @@ public class SettingsActivity extends Activity {
             if (adapter == null){
                 //NFC not supported
                 nfcPreference.setSummary(this.getActivity().getString(R.string.nfc_notsupported));
-            }else if(adapter.isEnabled()) {
+            }else if(!adapter.isEnabled()) {
                 //NFC is disabled now.
                 nfcPreference.setSummary(this.getActivity().getString(R.string.nfc_disabled));
             }else{
