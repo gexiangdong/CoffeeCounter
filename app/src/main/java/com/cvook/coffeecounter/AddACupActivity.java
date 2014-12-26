@@ -48,8 +48,7 @@ public class AddACupActivity extends Activity {
                         Toast.makeText(AddACupActivity.this, resp.getString("message"), Toast.LENGTH_LONG).show();
                         if(PreferenceManager.getDefaultSharedPreferences(AddACupActivity.this).getBoolean("", true)){
                             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                            long [] pattern = {100,400,100};   // 停止 开启 停止 开启
-                            vibrator.vibrate(pattern, -1);
+                            vibrator.vibrate(500);
                         }
                     } catch (JSONException e) {
                         Log.e("CC", "JSONException。", e);
@@ -59,7 +58,6 @@ public class AddACupActivity extends Activity {
                 Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
                 r.play();
-                //close the activity
                 finish();
 
             }
