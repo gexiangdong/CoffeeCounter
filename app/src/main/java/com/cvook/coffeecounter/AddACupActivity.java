@@ -30,6 +30,12 @@ public class AddACupActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.d("CC", "AddACupActivity onCreated...");
         setContentView(R.layout.activity_add_acup);
+
+        if(PreferenceManager.getDefaultSharedPreferences(AddACupActivity.this).getBoolean("", true)){
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
+        }
+
         String userId = MainActivity.getUserId(this);
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("datasource", "2");
@@ -46,10 +52,6 @@ public class AddACupActivity extends Activity {
                     try {
                         JSONObject resp = new JSONObject(jsonString);
                         Toast.makeText(AddACupActivity.this, resp.getString("message"), Toast.LENGTH_LONG).show();
-                        if(PreferenceManager.getDefaultSharedPreferences(AddACupActivity.this).getBoolean("", true)){
-                            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(500);
-                        }
                     } catch (JSONException e) {
                         Log.e("CC", "JSONException。", e);
                         Toast.makeText(AddACupActivity.this, getString(R.string.addacup_something_wrong), Toast.LENGTH_LONG).show();
