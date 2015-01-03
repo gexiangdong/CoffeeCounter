@@ -1,0 +1,37 @@
+<resources>
+    <string name="title_activity_settings">设置</string>
+
+
+    <string name="groupMe">我</string>
+    <string name="avatar">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="uuid">UUID</string>
+
+
+    <string name="groupAddaCup">记录喝一杯咖啡的其它方式</string>
+    <string name="addCupBarcode">扫描二维码</string>
+    <string name="addCupBarcodeSummary">把这个二维码印到咖啡杯上，每次泡好咖啡后，扫描一下二维码。</string>
+    <string name="addCupNFCUrl">使用NFC标签</string>
+    <string name="addCupNFCUrlSummary">每次泡好咖啡后，用手机靠近NFC标签来记录。</string>
+
+
+    <string name="groupData">数据</string>
+    <string name="importData">导入数据</string>
+    <string name="importDataSummary">Import coffee drink records in CSV format. (to be done)</string>
+    <string name="exportData">导出数据</string>
+    <string name="exportDataSummary">Export your drink record to SDCard. (to be done)</string>
+
+    <string name="groupApp">应用</string>
+    <string name="version">版本</string>
+
+
+    <string name="write_nfc_tag">制作&quot;+1&quot;的NFC标签</string>
+    <string name="write_nfc_tag_note">拿一个空白NFC标签靠近手机后背，当NFC标签写好后，可以把这个标签贴到咖啡杯上，每次手机靠近咖啡杯即可记录一杯。【此操作会擦除以前NFC标签上的内容】</string>
+    <string name="write_nfc_tag_success">NFC标签写入成功。</string>
+    <string name="error_tag_not_writeable">错误: 不可写的NFC标签。</string>
+    <string name="error_tag_too_small">错误: 这个标签容量太小。</string>
+    <string name="nfc_disabled">NFC被禁用，请从设置中启用NFC功能后再尝试制作NFC标签。</string>
+    <string name="nfc_notsupported">此手机不支持NFC功能。</string>
+    <string name="vibrate_on_nfc_detected">检测到NFC标签时震动</string>
+    <string name="vibrate_on_nfc_detected_summary">当&quot;+1&quot; NFC标签靠近时震动</string>
+</resources>
