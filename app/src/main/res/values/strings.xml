@@ -10,12 +10,11 @@
     <string name="networkError">network error</string>
     <string name="title_activity_add_acup">AddACupActivity</string>
     <string name="addacup_something_wrong">Something wrong while adding a cup.</string>
-
     <string name="app_version">1.0</string>
-
     <string name="close">Close</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
-
+    <string name="appwidget_today_cups">...</string>
+    <string name="appwidget_addacup">+1</string>
 </resources>

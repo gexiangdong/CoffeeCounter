@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin" android:background="#000">
+
+    <TextView android:id="@+id/appwidget_today_cups"
+        android:layout_width="0sp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="@string/appwidget_today_cups"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+    <Button android:id="@+id/appwidget_addacup"
+        android:layout_weight="1"
+        android:layout_width="0sp"
+        android:layout_height="fill_parent"
+        android:text="@string/appwidget_addacup"
+        android:textSize="24sp"
+        />
+</LinearLayout>
