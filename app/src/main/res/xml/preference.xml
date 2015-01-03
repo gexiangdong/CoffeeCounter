@@ -59,6 +59,14 @@
             android:defaultValue="true"
             />
 
+
+        <Preference
+            android:key="gotoWebsite"
+            android:persistent="false"
+            android:title="@string/goto_website"
+            android:summary="@string/goto_website_summary" />
+
+
         <Preference
             android:key="version"
             android:persistent="false"

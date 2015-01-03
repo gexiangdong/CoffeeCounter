@@ -14,6 +14,7 @@
     <string name="close">Close</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="info">Infomation</string>
 
     <string name="appwidget_today_cups">...</string>
     <string name="appwidget_addacup">+1</string>

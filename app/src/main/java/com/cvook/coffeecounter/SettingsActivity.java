@@ -208,6 +208,27 @@ public class SettingsActivity extends Activity {
                 });
             }
 
+            findPreference("gotoWebsite").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener(){
+                @Override public boolean onPreferenceClick(Preference preference){
+                    //打开网站
+                    AlertDialog.Builder adb = new AlertDialog.Builder(preference.getContext());
+                    adb.setTitle(R.string.info);
+                    adb.setMessage(R.string.open_website_notes);
+                    adb.setCancelable(true);
+                    adb.setPositiveButton(R.string.ok,
+                            new DialogInterface.OnClickListener(){
+                                public void onClick(DialogInterface dialog,int whichButton){
+                                    Uri uriUrl = Uri.parse("http://cc.cvook.com/");
+                                    Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                                    startActivity(launchBrowser);
+                                }
+                            });
+
+                    adb.create().show();
+                    return true;
+                }
+            });
+
         }
 
 

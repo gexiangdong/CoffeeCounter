@@ -11,8 +11,8 @@
     <string name="groupAddaCup">Alternatives to Add a Cup</string>
     <string name="addCupBarcode">Scan Barcode</string>
     <string name="addCupBarcodeSummary">Print the barcode on your coffee cup, scan it each time when you have a cup of coffee.</string>
-    <string name="addCupNFCUrl">Using a NFC Tag</string>
-    <string name="addCupNFCUrlSummary">Snap the NFC Tag on your coffee cup, put your phone close to the cup before your drink it.</string>
+    <string name="addCupNFCUrl">Using a NFC Tag/Sticker</string>
+    <string name="addCupNFCUrlSummary">Snap the NFC sticker on your coffee cup, put your phone close to the cup before your drink it.</string>
 
 
     <string name="groupData">Data</string>
@@ -25,14 +25,18 @@
     <string name="version">Version</string>
 
 
-    <string name="write_nfc_tag">Build an &quot;Add a Cup&quot; NFC Tag</string>
-    <string name="write_nfc_tag_note">Bring a writable NFC Tag close to the phone.</string>
-    <string name="write_nfc_tag_success">Success to write the NFC Tag.</string>
+    <string name="write_nfc_tag">Build an \"Add a Cup\" NFC Tag</string>
+    <string name="write_nfc_tag_note">Bring a writable NFC sticker close to the phone.</string>
+    <string name="write_nfc_tag_success">Success to write the NFC tag/sticker.</string>
     <string name="error_tag_not_writeable">Error: The tag is NOT writable.</string>
     <string name="error_tag_too_small">Error: Tag is too small, buy anther tag please.</string>
     <string name="nfc_disabled">NFC is disabled, enabled it from settings before make a NFC tag.</string>
     <string name="nfc_notsupported">Your phone does NOT support NFC. This function need NFC.</string>
 
-    <string name="vibrate_on_nfc_detected">Vibrate when NFC</string>
-    <string name="vibrate_on_nfc_detected_summary">Vibrate when &quot;Add a Cup&quot; NFC Tag detected</string>
+    <string name="vibrate_on_nfc_detected">Vibrate when NFC discovered</string>
+    <string name="vibrate_on_nfc_detected_summary">Vibrate when \"Add a Cup\" NFC tag/sticker discovered.</string>
+
+    <string name="goto_website">Website</string>
+    <string name="goto_website_summary">Open http://cc.cvook.com in browser.</string>
+    <string name="open_website_notes">You are about to leave the APP to visit an external website.</string>
 </resources>
