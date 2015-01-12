@@ -33,7 +33,7 @@ public class AddACupActivity extends Activity {
 
         if(PreferenceManager.getDefaultSharedPreferences(AddACupActivity.this).getBoolean("", true)){
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(500);
+            vibrator.vibrate(300);
         }
 
         String userId = MainActivity.getUserId(this);
